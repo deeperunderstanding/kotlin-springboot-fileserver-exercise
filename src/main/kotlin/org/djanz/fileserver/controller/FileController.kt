@@ -2,7 +2,6 @@ package org.djanz.fileserver.controller
 
 import org.djanz.fileserver.model.rest.FileInfo
 import org.djanz.fileserver.service.FileService
-import org.djanz.fileserver.storage.FileStorage
 import org.djanz.fileserver.storage.TagRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.Resource
@@ -13,18 +12,16 @@ import org.springframework.web.multipart.MultipartFile
 
 
 @RestController
-class FileController @Autowired constructor(val fileStorage: FileStorage,
-                                            val tagRepo: TagRepository,
+class FileController @Autowired constructor(val tagRepo: TagRepository,
                                             val fileService : FileService) {
 
     @PostMapping("/file")
     fun uploadFile(@RequestParam("file") file: MultipartFile) =
-            fileStorage.store(file)
-
+            fileService.storeFile(file)
 
     @GetMapping("/file/{name}")
     fun downloadFile(@PathVariable("name") fileName: String): ResponseEntity<Resource> =
-            fileStorage.loadFile(fileName).let { file ->
+            fileService.loadFile(fileName).let { file ->
                 ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.filename + "\"")
                         .body(file)

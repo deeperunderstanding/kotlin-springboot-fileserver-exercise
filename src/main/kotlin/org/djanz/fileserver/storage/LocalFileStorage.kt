@@ -8,13 +8,12 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 class LocalFileStorage : FileStorage {
 
-    final val storageLocation = Paths.get("files")
+    private final val storageLocation: Path = Paths.get("files")
 
     init {
         if (!Files.exists(storageLocation)) {

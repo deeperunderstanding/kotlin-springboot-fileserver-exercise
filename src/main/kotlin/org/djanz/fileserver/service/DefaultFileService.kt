@@ -7,7 +7,9 @@ import org.djanz.fileserver.storage.FileRepository
 import org.djanz.fileserver.storage.FileStorage
 import org.djanz.fileserver.storage.TagRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 import kotlin.streams.toList
 
 @Service
@@ -15,6 +17,10 @@ class DefaultFileService @Autowired constructor(
         val fileStorage: FileStorage,
         val tagRepo: TagRepository,
         val fileRepo: FileRepository) : FileService {
+
+    override fun loadFile(fileName: String): Resource = fileStorage.loadFile(fileName)
+
+    override fun storeFile(file: MultipartFile) = fileStorage.store(file)
 
     override fun allFiles(): List<FileInfo> {
         return fileStorage.listAllFiles().map { it.toString() }.toList().map { fileName ->
