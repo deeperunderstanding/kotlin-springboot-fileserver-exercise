@@ -34,24 +34,23 @@ Das Ziel der Aufgabe ist ein simpler File-Server, mit folgenden Kriterien:
 Entworfen nach einer einfachen Adaption der "Clean Architecture",
 hauptsächlich wird auf Einhaltung der SOLID Prinzipien geachtet.
 Teilung der Verwantwortungen in klar definierte Schichten, lose gekoppelt nach dem Prinzip der Dependcy Inversion, funktioniert hervorragend
-in Spring Boot da vieles über Dependency Injection zusammengeseteckt wird und
+in Spring Boot da vieles über Dependency Injection zusammengesteckt wird und
 der Code sollte einfach testbar und Komponenten austauschabr sein, da nur gegen Schnittstellen implementiert wird.
-
 
 
 #### Controller (FileController)
 
-einfach Spring Rest Controller, der die Konfiguration der Rest Endpunkte beinhaltet und den Inhalt der Requests
-and die entsprechende Service Methode weiterleitet
+Einfacher Spring Rest Controller, der die Konfiguration der Rest Endpunkte beinhaltet und den Inhalt der Requests
+verarbeitet z.b von JSON in POJOs und and die entsprechende Service Methode weiterleitet.
 
 #### Service/Domain (FileService / DefaultFileService)
 
-Service Schicht die die Domain Use Cases und Interaktion zwischen Domain Objekten implementiert
+Service / Domain Logik Schicht die die Business Use Cases abbildet und Interaktion zwischen Domain Objekten implementiert
 und mit Repositories interagiert
 
 #### Repository / Storage
 
-Schnittstellen und Implementierungen um mit Datenhaltungssystemen zu interagieren in diesem Fall
+Schnittstellen und Implementierungen um auf Datenhaltungssystemen zuzugreifen in diesem Fall
 mit der Datenbanken und dem lokalen Dateinsystem des Servers.
 
 
@@ -60,6 +59,7 @@ mit der Datenbanken und dem lokalen Dateinsystem des Servers.
 
 - [ ] Filtern nach mehreren Tags
 - [ ] Wenn der api key header nicht gesetzt ist gibt es eine IllegalStateException, ich hätte lieber ein 405 Not Authorized
+- [ ] Endpoint für hinzufügen von Tags sollte Dateiname als Pfadparameter haben und nicht als teil des request bodys.
 - [ ] Momentan können Tags nur angehangen werden, ändere so das -> POST: tags überschreiben, PUT: tags hinzufügen
 - [ ] Beim hinzufügen von Tags prüfe ich nicht ob es die angegebene Datei im Dateisystem wirklich gibt..
 - [ ] Tests!
